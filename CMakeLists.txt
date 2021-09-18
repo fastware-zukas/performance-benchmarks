@@ -1,0 +1,29 @@
+
+cmake_minimum_required(VERSION 3.16)
+
+project(fastware VERSION 0.1.0)
+
+set(BENCHMARK_ENABLE_TESTING OFF)
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native -fno-omit-frame-pointer -std=c++17 -fno-rtti")
+
+include_directories(benchmark/include)
+include_directories(libdivide)
+
+add_subdirectory(benchmark)
+add_subdirectory(libdivide)
+add_subdirectory(1.pythagoras)
+add_subdirectory(2.inventory)
+add_subdirectory(3.caching)
+add_subdirectory(4.str_to_int)
+add_subdirectory(5.allocation)
+add_subdirectory(6.interview)
+add_subdirectory(7.threads)
+add_subdirectory(8.bad_things)
+add_subdirectory(9.complex)
+add_subdirectory(10.uni)
+add_subdirectory(11.student_challange)
+add_subdirectory(12.profiler)
+add_subdirectory(13.goto)
+add_subdirectory(14.std)
+add_subdirectory(15.sync)
