@@ -1,7 +1,7 @@
 
 cmake_minimum_required(VERSION 3.16)
 
-project(fastware VERSION 0.1.0)
+project(performance-benchmarks VERSION 0.1.0)
 
 set(BENCHMARK_ENABLE_TESTING OFF)
 
@@ -27,3 +27,6 @@ add_subdirectory(12.profiler)
 add_subdirectory(13.goto)
 add_subdirectory(14.std)
 add_subdirectory(15.sync)
+add_subdirectory(16.practice)
+add_subdirectory(17.practice2)
+add_subdirectory(19.alignment)
