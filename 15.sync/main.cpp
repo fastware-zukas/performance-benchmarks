@@ -20,7 +20,7 @@ static void bench_mutex(benchmark::State &state) {
     int count;
   } *store = nullptr;
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     const int count = state.range(0);
     std::random_device r;
     std::default_random_engine re(r());
@@ -47,7 +47,7 @@ static void bench_mutex(benchmark::State &state) {
     benchmark::DoNotOptimize(*store);
   }
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     benchmark::DoNotOptimize(*store);
     delete store;
   }
@@ -62,7 +62,7 @@ static void bench_atomic(benchmark::State &state) {
     std::atomic_int32_t count;
   } *store = nullptr;
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     const int count = state.range(0);
     std::random_device r;
     std::default_random_engine re(r());
@@ -91,7 +91,7 @@ static void bench_atomic(benchmark::State &state) {
     benchmark::DoNotOptimize(*store);
   }
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     benchmark::DoNotOptimize(*store);
     delete store;
   }
@@ -108,7 +108,7 @@ static void bench_no_sync(benchmark::State &state) {
   };
   static std::vector<Data> store;
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     const int count = state.range(0);
     std::random_device r;
     std::default_random_engine re(r());
@@ -117,12 +117,12 @@ static void bench_no_sync(benchmark::State &state) {
     for (auto &val : data) {
       val = gen(re);
     }
-    store.resize(state.threads);
+    store.resize(state.threads());
   }
 
   for (auto _ : state) {
     for (auto val : data) {
-      auto &s = store[state.thread_index];
+      auto &s = store[state.thread_index()];
       if (val > s.max) {
         s.max = val;
       }
@@ -134,7 +134,7 @@ static void bench_no_sync(benchmark::State &state) {
     benchmark::DoNotOptimize(store.data());
   }
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
 
     Data result = std::accumulate(store.begin(), store.end(), Data{0, 0, 0},
                                   [](const Data &res, const Data &val) {
@@ -158,7 +158,7 @@ static void bench_no_sync_with_align(benchmark::State &state) {
   };
   static std::vector<Data> store;
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     const int count = state.range(0);
     std::random_device r;
     std::default_random_engine re(r());
@@ -167,12 +167,12 @@ static void bench_no_sync_with_align(benchmark::State &state) {
     for (auto &val : data) {
       val = gen(re);
     }
-    store.resize(state.threads);
+    store.resize(state.threads());
   }
 
   for (auto _ : state) {
     for (auto val : data) {
-      auto &s = store[state.thread_index];
+      auto &s = store[state.thread_index()];
       if (val > s.max) {
         s.max = val;
       }
@@ -184,7 +184,7 @@ static void bench_no_sync_with_align(benchmark::State &state) {
     benchmark::DoNotOptimize(store.data());
   }
 
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
 
     Data result = std::accumulate(store.begin(), store.end(), Data{0, 0, 0},
                                   [](const Data &res, const Data &val) {

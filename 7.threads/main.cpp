@@ -345,7 +345,7 @@ static std::vector<Result> get_top_branches(int top) {
 } // namespace eng
 
 BENCHMARK_DEFINE_F(SaleFixture, eng_impl)(benchmark::State &state) {
-  if (state.thread_index == 0) {
+  if (state.thread_index() == 0) {
     eng::init();
   }
   for (auto _ : state) {

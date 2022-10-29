@@ -49,6 +49,7 @@ PYBIND11_MODULE(_benchmark, m) {
       .value("kNanosecond", TimeUnit::kNanosecond)
       .value("kMicrosecond", TimeUnit::kMicrosecond)
       .value("kMillisecond", TimeUnit::kMillisecond)
+      .value("kSecond", TimeUnit::kSecond)
       .export_values();
 
   using benchmark::BigO;
@@ -156,7 +157,7 @@ PYBIND11_MODULE(_benchmark, m) {
       .def("pause_timing", &State::PauseTiming)
       .def("resume_timing", &State::ResumeTiming)
       .def("skip_with_error", &State::SkipWithError)
-      .def_property_readonly("error_occured", &State::error_occurred)
+      .def_property_readonly("error_occurred", &State::error_occurred)
       .def("set_iteration_time", &State::SetIterationTime)
       .def_property("bytes_processed", &State::bytes_processed,
                     &State::SetBytesProcessed)
@@ -164,12 +165,12 @@ PYBIND11_MODULE(_benchmark, m) {
                     &State::SetComplexityN)
       .def_property("items_processed", &State::items_processed,
                     &State::SetItemsProcessed)
-      .def("set_label", (void (State::*)(const char*)) & State::SetLabel)
+      .def("set_label", (void(State::*)(const char*)) & State::SetLabel)
       .def("range", &State::range, py::arg("pos") = 0)
       .def_property_readonly("iterations", &State::iterations)
       .def_readwrite("counters", &State::counters)
-      .def_readonly("thread_index", &State::thread_index)
-      .def_readonly("threads", &State::threads);
+      .def_property_readonly("thread_index", &State::thread_index)
+      .def_property_readonly("threads", &State::threads);
 
   m.def("Initialize", Initialize);
   m.def("RegisterBenchmark", RegisterBenchmark,

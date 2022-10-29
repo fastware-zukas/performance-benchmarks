@@ -6,6 +6,7 @@
 class poly_b_class : public poly_interface {
 public:
   poly_b_class(int sys, int core);
+  ~poly_b_class();
   int compute(int input) override;
 
 private:

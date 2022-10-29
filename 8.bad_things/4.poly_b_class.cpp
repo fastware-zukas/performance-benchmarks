@@ -2,4 +2,6 @@
 
 poly_b_class::poly_b_class(int sys, int core) : sys_val(sys), core_val(core) {}
 
+poly_b_class::~poly_b_class() {}
+
 int poly_b_class::compute(int input) { return (input * sys_val) >> core_val; }

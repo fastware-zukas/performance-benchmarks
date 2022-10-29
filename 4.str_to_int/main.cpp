@@ -317,4 +317,44 @@ BENCHMARK_DEFINE_F(string_data_fixture, my_atoi2)(benchmark::State &state) {
 
 BENCH(my_atoi2);
 
+int my_atoi3(const char *begin, const char *end) {
+  if ((begin == nullptr) | (end == nullptr))
+    return 0;
+
+  int res = 0;  // Initialize result
+  int sign = 1; // Initialize sign as positive
+
+  // If number is negative, then update sign
+  if (*begin == '-') {
+    sign = -1;
+    begin++; // Also update index of first digit
+  }
+
+  constexpr int powers10[]{1,      10,      100,      1000,      10000,
+                           100000, 1000000, 10000000, 100000000, 1000000000};
+
+  const int *pow = nullptr;
+  uint8_t c = 0;
+  for (c = uint8_t(*end) - '0', pow = powers10; c <= 9;
+       c = uint8_t(*--end) - '0', pow++) {
+    res += int(c) * *pow;
+  }
+
+  // Return result with sign
+  return res * sign;
+}
+
+BENCHMARK_DEFINE_F(string_data_fixture, my_atoi3)(benchmark::State &state) {
+
+  for (auto _ : state) {
+    for (const auto &[str, integer] : values) {
+      const auto val = my_atoi3(str.c_str(), str.c_str() + str.length());
+      assert(val == integer);
+      benchmark::DoNotOptimize(&val);
+    }
+  }
+}
+
+BENCH(my_atoi2);
+
 BENCHMARK_MAIN();

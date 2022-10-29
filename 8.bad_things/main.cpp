@@ -13,10 +13,12 @@
 #include "5.print_scan.h"
 #include "7.pimpl_exmp.h"
 
+#include <array>
 #include <charconv>
 #include <cstring>
 #include <memory>
 #include <random>
+#include <string>
 #include <string_view>
 #include <vector>
 
@@ -205,8 +207,8 @@ struct AllMyData {
   int id;
   std::string name;
   std::pair<int, int> type;
-  std::array<std::string, 128> attribute;
-  std::array<uint8_t, 128> data;
+  std::array<std::string, 128> attribute{};
+  std::array<uint8_t, 128> data{};
 };
 
 static void mix_data_6(benchmark::State &state) {
