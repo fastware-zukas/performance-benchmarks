@@ -74,5 +74,6 @@
         "semaphore": "cpp",
         "span": "cpp"
     },
-    "cmake.configureOnOpen": false
+    "cmake.configureOnOpen": false,
+    "C_Cpp.default.configurationProvider": "go2sh.cmake-integration"
 }
